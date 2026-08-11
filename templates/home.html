@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habit Tracker</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+    <div class="container mt-5">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>My Habits</h2>
+
+            <a href="{% url 'add_habbit' %}" class="btn btn-success">
+                + Add Habit
+            </a>
+        </div>
+
+        {% if habbits %}
+
+        {% for habbit in habbits %}
+
+        <div class="card mb-3 shadow">
+
+            <div class="card-body">
+
+                <h4>{{ habbit.title }}</h4>
+
+                <p>{{ habbit.description }}</p>
+
+                {% if habbit.completed %}
+
+                <span class="badge bg-success">
+                    Completed
+                </span>
+
+                {% else %}
+
+                <span class="badge bg-success text-light">
+                    Pending
+                </span>
+
+                {% endif %}
+
+                <a href="{% url 'update_habbit' habbit.id %}" class="btn btn-warning">
+                    Edit
+                </a>
+
+                <a href="{% url 'delete_habbit' habbit.id %}" class="btn btn-danger">
+                    Delete
+                </a>
+
+                <a href="{% url 'complete_today' habbit.id %}" class="btn btn-success">
+                    Complete Today
+                </a>
+
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+        {% else %}
+
+        <div class="alert alert-info">
+            No habits added yet.
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</body>
+
+</html>
